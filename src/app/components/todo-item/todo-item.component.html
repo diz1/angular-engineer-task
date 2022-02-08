@@ -1,0 +1,32 @@
+<ng-container *ngIf="todo$ | async as todo; else emptyItemRef">
+  <mat-toolbar>
+    <div class="title">
+      <span [ngClass]="{ hidden: canEditTitle }" (click)="editContent(titleInput, 'title')">{{ todo.title }}</span>
+
+      <mat-form-field [ngClass]="{ hidden: !canEditTitle }">
+        <input #titleInput type="text" matInput [value]="todo.title" (blur)="renameTodo($event, 'title')">
+      </mat-form-field>
+    </div>
+  </mat-toolbar>
+  <mat-divider></mat-divider>
+  <div class="content">
+    <span [ngClass]="{ hidden: canEditDescription }" (click)="editContent(descriptionInput, 'description')">{{ todo.description }}</span>
+
+    <mat-form-field [ngClass]="{ hidden: !canEditDescription }">
+      <textarea
+        #descriptionInput rows="3"
+        type="text" matInput
+        [value]="todo.description"
+        (blur)="renameTodo($event, 'description')"
+      ></textarea>
+    </mat-form-field>
+  </div>
+</ng-container>
+
+<ng-template #emptyItemRef>
+  <mat-toolbar>Select note</mat-toolbar>
+  <mat-divider></mat-divider>
+  <div class="content content--empty">
+    Select note...
+  </div>
+</ng-template>

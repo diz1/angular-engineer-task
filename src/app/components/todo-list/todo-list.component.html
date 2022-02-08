@@ -1,0 +1,51 @@
+<mat-toolbar class="toolbar">
+  <div class="toolbar__content">
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+
+      <input matInput type="text" [formControl]="searchField">
+      <button
+        matSuffix mat-icon-button
+        aria-label="Clear"
+        (click)="clearSearch($event)"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-mini-fab color="accent" (click)="addTodo()" [disabled]="addDisabled$ | async">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<mat-divider></mat-divider>
+
+<mat-nav-list>
+  <ng-container *ngIf="todos$ | async as todos">
+    <ng-container *ngFor="let todo of todos | sortByDate: 'DESC'">
+      <app-todo-list-item
+        [data]="todo"
+        (delete)="deleteTodo($event)"
+      ></app-todo-list-item>
+    </ng-container>
+
+    <ng-container *ngIf="!todos.length">
+      <p style="padding: 10px;">
+        Nothing to show...
+      </p>
+    </ng-container>
+  </ng-container>
+</mat-nav-list>
+
+<mat-divider style="margin-top: auto;"></mat-divider>
+
+<mat-toolbar class="chips">
+  <ng-container *ngIf="todoService.tags$ | async as tags">
+    <mat-chip-list aria-label="Fish selection">
+      <ng-container *ngFor="let tag of tags">
+        <mat-chip (click)="searchField.setValue(tag)">{{ tag }}</mat-chip>
+      </ng-container>
+    </mat-chip-list>
+  </ng-container>
+</mat-toolbar>

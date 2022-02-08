@@ -1,0 +1,13 @@
+<mat-list-item [routerLink]="['/view', todo.id]">
+  <div mat-line>
+    {{ todo.title }}
+  </div>
+
+  <div mat-line>
+    {{ todo.date | date: 'dd.MM.YYYY HH:mm:ss' }}
+  </div>
+
+  <button mat-icon-button (click)="onDelete($event)">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-list-item>

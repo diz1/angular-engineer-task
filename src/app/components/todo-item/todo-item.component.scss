@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.title {
+  width: 300px;
+}
+
+.content {
+  padding: 10px;
+
+  &--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+}
